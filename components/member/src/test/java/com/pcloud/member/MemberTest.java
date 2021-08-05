@@ -14,11 +14,15 @@ class MemberTest {
 
     @Test
     void member_has_fields() {
+        Address givenAddress = new Address();
+
         Member member = Member.builder()
                 .name("name")
+                .address(givenAddress)
                 .build();
 
         assertThat(member.getName()).isEqualTo("name");
+        assertThat(member.getAddress()).isEqualTo(givenAddress);
         assertThat(member.getId()).isEqualTo(null);
     }
 }
