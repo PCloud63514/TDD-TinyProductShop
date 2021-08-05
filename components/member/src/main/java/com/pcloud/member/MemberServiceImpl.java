@@ -35,7 +35,10 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void updateMember(Long id, String name, Address address) {
-
+    public void updateMember(Long id, String name, Address address) throws NotFoundException {
+        Optional<Member> member = memberRepository.findById(id);
+        if (member.isEmpty()) throw new NotFoundException("Member does not exist");
+        member.get().setName(name);
+        member.get().setAddress(address);
     }
 }

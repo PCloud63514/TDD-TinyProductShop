@@ -7,6 +7,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Repository;
 
 import java.util.Collections;
 import java.util.List;
@@ -59,10 +60,57 @@ class MemberServiceTest {
     void findMemberById_callFindByIdInMemberRepository() throws NotFoundException {
         Member givenMember = Member.builder()
                 .build();
+        memberRepository.findById_member = givenMember;
         Member member = memberService.findMemberById(givenMember.getId());
 
         assertThat(memberRepository.findById_wasCalled).isTrue();
-        assertThat(member).isEqualTo(givenMember);
+        assertThat(member.getId()).isEqualTo(givenMember.getId());
+    }
+
+    @Test
+    void findMemberById_throwException_ExistId() {
+        Member givenMember = Member.builder()
+                .build();
+
+        assertThrows(NotFoundException.class, () -> {
+           memberService.findMemberById(givenMember.getId());
+        });
+    }
+
+    @Test
+    void updateMember_callFindByIdInMemberRepository() throws NotFoundException {
+        Address givenAddress = Address.builder()
+                .city("city")
+                .street("street")
+                .zipcode("zipcode")
+                .build();
+        Member givenMember = Member.builder()
+                .name("name")
+                .address(givenAddress)
+                .build();
+        Address update_givenAddress = Address.builder()
+                .city("update_city")
+                .street("update_street")
+                .zipcode("update_zipcode")
+                .build();
+
+        memberRepository.findById_member = givenMember;
+        memberService.updateMember(givenMember.getId(), "update_name", update_givenAddress);
+
+        assertThat(memberRepository.findById_wasCalled).isTrue();
+        assertThat(memberRepository.findById_member.getName()).isEqualTo("update_name");
+        assertThat(memberRepository.findById_member.getAddress()).isEqualTo(update_givenAddress);
+    }
+
+    @Test
+    void updateMember_throwException_ExistId() {
+        Member givenMember = Member.builder()
+                .build();
+        Address givenAddress = Address.builder()
+                .build();
+        assertThrows(NotFoundException.class, () -> {
+            memberService.updateMember(givenMember.getId(), "update_name", givenAddress);
+        });
     }
 
     private static class SpyMemberRepository implements MemberRepository {
@@ -139,7 +187,9 @@ class MemberServiceTest {
         @Override
         public Optional<Member> findById(Long aLong) {
             findById_wasCalled = true;
-            return Optional.empty();
+            if (findById_member == null)
+                return Optional.empty();
+            return Optional.of(findById_member);
         }
 
         @Override

@@ -3,12 +3,13 @@ package com.pcloud.member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @NoArgsConstructor
 @Entity
-@Getter
+@Getter @Setter
 @Table(name="Members")
 public class Member {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
