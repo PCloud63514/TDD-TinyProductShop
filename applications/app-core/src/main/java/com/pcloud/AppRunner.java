@@ -21,13 +21,13 @@ public class AppRunner implements ApplicationRunner {
     private void initMember() {
         for (int i = 0; i < 100; i++) {
             Address address = Address.builder()
-                    .city("city_" + ((i % 4) + 1))
-                    .street("street_" + ((i % 4) + 1))
+                    .city("city_" + ((i % 10) + 1))
+                    .street("street_" + ((i % 5) + 1))
                     .zipcode("zipcode_" + ((i % 4) + 1))
                     .build();
 
             Member member = Member.builder()
-                    .name("name" + i)
+                    .name("name" + i + 1)
                     .address(address)
                     .build();
 
