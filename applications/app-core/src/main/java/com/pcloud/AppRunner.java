@@ -19,7 +19,7 @@ public class AppRunner implements ApplicationRunner {
     }
 
     private void initMember() {
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1; i++) {
             Address address = Address.builder()
                     .city("city_" + ((i % 10) + 1))
                     .street("street_" + ((i % 5) + 1))

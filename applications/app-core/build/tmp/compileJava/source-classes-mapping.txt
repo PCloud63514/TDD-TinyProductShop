@@ -1,4 +1,6 @@
 com/pcloud/AppRunner.java
  com.pcloud.AppRunner
+com/pcloud/WebController.java
+ com.pcloud.WebController
 com/pcloud/CoreApplication.java
  com.pcloud.CoreApplication

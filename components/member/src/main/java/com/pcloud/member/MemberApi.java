@@ -14,7 +14,7 @@ import java.util.List;
 public class MemberApi {
     private final MemberService memberService;
 
-    @GetMapping("/member/")
+    @GetMapping("/member")
     public String hello() {
         return "hello";
     }
