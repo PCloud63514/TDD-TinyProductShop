@@ -12,7 +12,10 @@ import java.util.List;
 @RestController
 public class MemberApi {
     private final MemberService memberService;
-
+    @GetMapping("/member/")
+    public String hello() {
+        return "hello";
+    }
     @GetMapping("/member/list")
     public List<Member> getMembers() {
         return memberService.getMembers();
