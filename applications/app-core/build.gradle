@@ -1,4 +1,5 @@
 dependencies {
     implementation project(':components:member')
+    implementation project(':components:swagger')
     testImplementation project(':components:member')
 }

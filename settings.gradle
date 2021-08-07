@@ -1,8 +1,7 @@
 rootProject.name = 'TinyProductShop'
-include 'components:member'
 include 'applications:app-core'
-include 'component:Product'
-findProject(':component:Product')?.name = 'Product'
+
+include 'components:member'
 include 'components:product'
-findProject(':components:product')?.name = 'product'
+include 'components:swagger'
 
