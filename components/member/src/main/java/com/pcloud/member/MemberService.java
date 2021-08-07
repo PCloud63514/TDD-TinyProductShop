@@ -9,5 +9,6 @@ public interface MemberService {
     Long saveMember(Member member) throws IllegalStateException;
     List<Member> getMembers();
     Member findMemberById(Long memberId) throws NotFoundException;
+    Member findMemberByName(String name) throws NotFoundException;
     void updateMember(Long id, String name, Address address) throws NotFoundException;
 }

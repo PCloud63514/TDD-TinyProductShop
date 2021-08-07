@@ -113,6 +113,12 @@ class MemberServiceTest {
         });
     }
 
+    @Test
+    void findMemberByName_callInMemberRepository() throws NotFoundException {
+        memberService.findMemberByName("name");
+        assertThat(memberRepository.findByName_wasCalled).isTrue();
+    }
+
     private static class SpyMemberRepository implements MemberRepository {
         private List<Member> defaultMembers = Collections.emptyList();
         // save
@@ -125,6 +131,8 @@ class MemberServiceTest {
 
         private boolean findById_wasCalled = false;
         public Member findById_member;
+
+        private boolean findByName_wasCalled = false;
 
         @Override
         public List<Member> findAll() {
@@ -254,6 +262,7 @@ class MemberServiceTest {
 
         @Override
         public List<Member> findByName(String name) {
+            findByName_wasCalled = true;
             return findByName_returnValue;
         }
     }
