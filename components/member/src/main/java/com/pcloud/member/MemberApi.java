@@ -1,7 +1,6 @@
 package com.pcloud.member;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,12 +24,8 @@ public class MemberApi {
     }
 
     @PostMapping("/member/join")
-    public Long join(@RequestBody MemberJoinDto memberJoinDto) {
-        Member joinMember = Member.builder()
-                .name(memberJoinDto.getName())
-                .address(memberJoinDto.getAddress())
-                .build();
-        Long id = memberService.saveMember(joinMember);
+    public Long join(@RequestBody MemberJoinForm memberJoinForm) {
+        Long id = memberService.saveMember(memberJoinForm);
 
         return id;
     }

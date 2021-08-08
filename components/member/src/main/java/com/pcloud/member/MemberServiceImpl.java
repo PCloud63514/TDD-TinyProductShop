@@ -13,13 +13,19 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
 
     @Override
-    public Long saveMember(Member member) throws IllegalStateException {
+    public Long saveMember(MemberJoinForm memberJoinForm) throws IllegalStateException {
         // Name 중복 체크
-        List<Member> members = memberRepository.findByName(member.getName());
+        List<Member> members = memberRepository.findByName(memberJoinForm.getName());
         if (members.isEmpty() == false) throw new IllegalStateException();
 
-        Member save_member = memberRepository.save(member);
-        return save_member.getId();
+        Member member = Member.builder()
+                .name(memberJoinForm.getName())
+                .address(memberJoinForm.getAddress())
+                .build();
+
+        memberRepository.save(member);
+
+        return member.getId();
     }
 
     @Override

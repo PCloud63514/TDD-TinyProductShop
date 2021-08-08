@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MemberService {
-    Long saveMember(Member member) throws IllegalStateException;
+    Long saveMember(MemberJoinForm memberJoinForm) throws IllegalStateException;
     List<Member> getMembers();
     Member findMemberById(Long memberId) throws NotFoundException;
     Member findMemberByName(String name) throws NotFoundException;

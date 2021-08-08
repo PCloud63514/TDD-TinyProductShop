@@ -27,12 +27,12 @@ class MemberServiceTest {
 
     @Test
     void saveMember_callsSaveInMemberRepository() throws IllegalStateException {
-        Member givenMember = new Member();
-        Long id = memberService.saveMember(givenMember);
+        MemberJoinForm givenMemberJoinForm = new MemberJoinForm("name", new Address());
+
+        Long id = memberService.saveMember(givenMemberJoinForm);
 
         assertThat(memberRepository.save_wasCalled).isTrue();
-        assertThat(memberRepository.save_argumentMember).isEqualTo(givenMember);
-        assertThat(id).isEqualTo(givenMember.getId());
+        assertThat(id).isEqualTo(memberRepository.save_argumentMember.getId());
     }
 
     @Test
@@ -40,11 +40,12 @@ class MemberServiceTest {
         Member givenMember = Member.builder()
                 .name("name")
                 .build();
+        MemberJoinForm givenMemberJoinForm = new MemberJoinForm("name", new Address());
 
         memberRepository.findByName_returnValue = List.of(givenMember);
 
         assertThrows(IllegalStateException.class, () -> {
-           memberService.saveMember(givenMember);
+           memberService.saveMember(givenMemberJoinForm);
         });
     }
 
