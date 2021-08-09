@@ -2,6 +2,7 @@ package com.pcloud;
 
 import com.pcloud.member.Address;
 import com.pcloud.member.Member;
+import com.pcloud.member.MemberJoinForm;
 import com.pcloud.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -19,19 +20,16 @@ public class AppRunner implements ApplicationRunner {
     }
 
     private void initMember() {
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 10; i++) {
             Address address = Address.builder()
                     .city("city_" + ((i % 10) + 1))
                     .street("street_" + ((i % 5) + 1))
                     .zipcode("zipcode_" + ((i % 4) + 1))
                     .build();
 
-            Member member = Member.builder()
-                    .name("name" + i + 1)
-                    .address(address)
-                    .build();
+            MemberJoinForm memberJoinForm = new MemberJoinForm("name_" + i + 1, address);
 
-            memberService.saveMember(member);
+            memberService.saveMember(memberJoinForm);
         }
     }
 }

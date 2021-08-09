@@ -59,7 +59,7 @@ class MemberApiIntegrationTest {
 
     @Test
     void join() throws Exception {
-        MemberJoinDto givenMemberJoinDto = new MemberJoinDto("name", Address.builder()
+        MemberJoinForm givenMemberJoinForm = new MemberJoinForm("name", Address.builder()
                 .city("city")
                 .street("street")
                 .zipcode("zipcode")
@@ -67,14 +67,14 @@ class MemberApiIntegrationTest {
 
         MvcResult result = mockMvc.perform(post("/member/join")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(givenMemberJoinDto)))
+                .content(objectMapper.writeValueAsString(givenMemberJoinForm)))
                 .andDo(print())
                 .andReturn();
 
         Long actualId = Long.valueOf(result.getResponse().getContentAsString());
         Member actualMember = memberService.findMemberById(actualId);
 
-        assertThat(actualMember.getName()).isEqualTo(givenMemberJoinDto.getName());
+        assertThat(actualMember.getName()).isEqualTo(givenMemberJoinForm.getName());
     }
 
     //    @Test
