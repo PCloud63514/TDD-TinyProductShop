@@ -19,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MemberServiceTest {
     MemberService memberService;
     SpyMemberRepository memberRepository;
+
     @BeforeEach
     void setUp() {
         memberRepository = new SpyMemberRepository();

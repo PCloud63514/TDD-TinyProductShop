@@ -43,7 +43,6 @@ class MemberApiIntegrationTest {
 
     @Test
     void hello() throws Exception {
-
         mockMvc.perform(get("/member"))
                 .andExpect(content().string("hello"))
                 .andDo(print());
